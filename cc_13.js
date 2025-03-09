@@ -25,6 +25,14 @@ function createEmployeeCard(id, name, position) {
     const removeButton = document.createElement("button");
     removeButton.textContent = "Remove"; 
 
+    // Task 4: Attach a click event listener to the "Remove" button that removes its parent employee card using removeChild
+    removeButton.addEventListener("click", (event) => {
+        employeeContainer.removeChild(card); 
+
+        // Task 4: Use stopPropagation() to prevent the event from bubbling up to the container
+        event.stopPropagation(); 
+    })
+
     card.appendChild(removeButton);
 
     // Append the employee card to the "employeeContainer" using appendChild
@@ -49,5 +57,12 @@ const employeeCardsArray = Array.from(employeeCardsNodeList);
 employeeCardsArray.forEach(card => {
     card.style.backgroundColor = "lightblue"; 
     card.style.border = "2px solid blue"; 
+})
+
+
+// Task 4: Implementing Removal of Employee Cards with Event Bubbling
+// Attach a click event listener to the "employeeContainer" that logs a message when any card is clicked
+employeeContainer.addEventListener("click", () => {
+    console.log("Employee Container Clicked"); 
 })
 
