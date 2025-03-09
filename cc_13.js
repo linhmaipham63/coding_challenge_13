@@ -35,6 +35,38 @@ function createEmployeeCard(id, name, position) {
 
     card.appendChild(removeButton);
 
+    // Task 5: Add an event listener to each employee card (or an edit button within it) that, on double-click, swaps static content with input fields
+    const editButton = document.createElement("button");
+    editButton.textContent = "Edit"; 
+    editButton.addEventListener("click", () => {
+        // Pre-populate the input fields with the existing employee name and position.
+        const nameInput = document.createElement("input");
+        nameInput.type = "text";
+        nameInput.value = empName.textContent;
+        
+        const positionInput = document.createElement("input");
+        positionInput.type = "text";
+        positionInput.value = empPosition.textContent;
+        
+        // Add a "Save" button that, when clicked, updates the employee card with the new values
+        const saveButton = document.createElement("button");
+        saveButton.textContent = "Save";
+        saveButton.addEventListener("click", () => {
+            empName.textContent = nameInput.value;
+            empPosition.textContent = positionInput.value;
+            card.replaceChild(empName, nameInput);
+            card.replaceChild(empPosition, positionInput);
+            card.replaceChild(card.querySelector("button:last-child"), saveButton);
+        });
+        
+        // Ensure the updated details are reflected in the card and revert the inputs back to static text
+        card.replaceChild(nameInput, empName);
+        card.replaceChild(positionInput, empPosition);
+        card.replaceChild(saveButton, card.querySelector("button:last-child"));
+    })
+
+    card.appendChild(editButton);
+
     // Append the employee card to the "employeeContainer" using appendChild
     employeeContainer.appendChild(card); 
 }
@@ -66,3 +98,5 @@ employeeContainer.addEventListener("click", () => {
     console.log("Employee Container Clicked"); 
 })
 
+
+// Task 5: Inline Editing of Employee Details
